@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@vee-validate/nuxt": "^4.14.6",
+    "@vee-validate/zod": "^4.14.6",
     "nuxt": "^3.14.159",
     "pinia": "2.0.36",
+    "vee-validate": "^4.14.6",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@pinia/nuxt": "0.4.10"
