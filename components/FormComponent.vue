@@ -12,20 +12,23 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import type { formDataProps } from "./SuccessDialog.vue";
 const formStore = useFormStore();
+const loadedDataStore: formDataProps = formStore.getFormData;
+
 const form = useForm({
   validationSchema: formSchema,
   initialValues: {
-    email: formStore.email,
-    password: formStore.password,
+    email: formStore.email || "",
+    password: formStore.password || "",
   },
 });
-
 
 watch(
   () => [formStore.email, formStore.password],
   () => {
-    console.log(formStore.email,formStore.password)
+
+    formStore.saveFormData();
   },
   { deep: true }
 );
@@ -45,15 +48,22 @@ const handleVisibilityChange = (newVisibility: boolean) => {
 </script>
 
 <template>
+  <p>{{ loadedDataStore }}</p>
   <form
     @submit="onSubmit"
     class="flex flex-col justify-center gap-4 m-auto max-w-96 h-svh"
+    :initial-values="loadedDataStore"
   >
     <FormField v-slot="{ componentField }" name="email">
       <FormItem>
         <FormLabel>Email <span class="text-red-500">*</span></FormLabel>
         <FormControl>
-          <Input type="text" placeholder="Email" v-bind="componentField"  v-model="formStore.email" />
+          <Input
+            type="text"
+            placeholder="Email"
+            v-bind="componentField"
+            v-model="formStore.email"
+          />
         </FormControl>
         <FormDescription> This is your public display email. </FormDescription>
         <FormMessage />
@@ -67,7 +77,7 @@ const handleVisibilityChange = (newVisibility: boolean) => {
             type="password"
             placeholder="Password"
             v-bind="componentField"
-             v-model="formStore.password"
+            v-model="formStore.password"
           />
         </FormControl>
         <FormDescription> Choose a secure password. </FormDescription>

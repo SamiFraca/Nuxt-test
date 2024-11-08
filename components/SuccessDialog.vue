@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-type formDataProps = {
+export type formDataProps = {
   email: string;
   password: string;
 };
