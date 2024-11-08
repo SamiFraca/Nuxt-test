@@ -13,7 +13,6 @@ type formDataProps = {
 };
 
 const props = defineProps<{ isVisible?: boolean; formData?: formDataProps }>();
-console.log(props.isVisible);
 const emit = defineEmits<{ (e: "update:isVisible", value: boolean): void }>();
 
 const closeDialog = () => {
@@ -25,7 +24,7 @@ const closeDialog = () => {
   <Dialog :open="props.isVisible">
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Congrats!</DialogTitle>
+        <DialogTitle>Your provided data:</DialogTitle>
         <DialogDescription>
           <p>Email: {{ props.formData?.email }}</p>
           <p>Password: {{ props.formData?.password }}</p>

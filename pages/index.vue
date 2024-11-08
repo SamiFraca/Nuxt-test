@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useTestStore } from "@/store/testStore";
 const testStore = useTestStore();
-console.log(testStore)
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useForm } from "vee-validate";
 import { formSchema } from "~/schemas/form-schema";
-
+import { useFormStore } from "~/store/formStore";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -12,14 +12,32 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+const formStore = useFormStore();
 const form = useForm({
   validationSchema: formSchema,
+  initialValues: {
+    email: formStore.email,
+    password: formStore.password,
+  },
 });
+
+
+watch(
+  () => [formStore.email, formStore.password],
+  () => {
+    console.log(formStore.email,formStore.password)
+  },
+  { deep: true }
+);
+
 const showDialog = ref(false);
-const formData = ref<{ email: string; password: string }>({ email: "", password: "" });
+const formData = ref<{ email: string; password: string }>({
+  email: formStore.email,
+  password: formStore.password,
+});
 const onSubmit = form.handleSubmit((values) => {
-  formData.value = values;  
-  showDialog.value = true; 
+  formData.value = values;
+  showDialog.value = true;
 });
 const handleVisibilityChange = (newVisibility: boolean) => {
   showDialog.value = newVisibility;
@@ -35,7 +53,7 @@ const handleVisibilityChange = (newVisibility: boolean) => {
       <FormItem>
         <FormLabel>Email <span class="text-red-500">*</span></FormLabel>
         <FormControl>
-          <Input type="text" placeholder="Email" v-bind="componentField" />
+          <Input type="text" placeholder="Email" v-bind="componentField"  v-model="formStore.email" />
         </FormControl>
         <FormDescription> This is your public display email. </FormDescription>
         <FormMessage />
@@ -49,6 +67,7 @@ const handleVisibilityChange = (newVisibility: boolean) => {
             type="password"
             placeholder="Password"
             v-bind="componentField"
+             v-model="formStore.password"
           />
         </FormControl>
         <FormDescription> Choose a secure password. </FormDescription>
@@ -63,7 +82,5 @@ const handleVisibilityChange = (newVisibility: boolean) => {
     :isVisible="showDialog"
     @update:isVisible="handleVisibilityChange"
     :formData="formData"
-
-    
   />
 </template>
