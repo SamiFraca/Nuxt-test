@@ -33,13 +33,13 @@ const onSubmit = form.handleSubmit((values) => {
         <FormMessage />
       </FormItem>
     </FormField>
-    <FormField v-slot="{ componentField }" name="email">
+    <FormField v-slot="{ componentField }" name="password">
       <FormItem>
         <FormLabel>Password <span class="text-red-500">*</span></FormLabel>
         <FormControl>
           <Input type="password" placeholder="Password" v-bind="componentField" />
         </FormControl>
-        <FormDescription> This is your password. </FormDescription>
+        <FormDescription> Choose a secure password. </FormDescription>
         <FormMessage />
       </FormItem>
     </FormField>
