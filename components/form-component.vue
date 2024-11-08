@@ -1,50 +1,48 @@
 <script setup lang="ts">
-import { toTypedSchema } from "@vee-validate/zod";
-import * as zod from "zod";
-import Button from "./ui/button/Button.vue";
-const validationSchema = toTypedSchema(
-  zod.object({
-    email: zod
-      .string()
-      .min(1, { message: "This is required" })
-      .email({ message: "Must be a valid email" }),
-    password: zod
-      .string()
-      .min(1, { message: "This is required" })
-      .min(8, { message: "Too short" }),
-  })
-);
-const onSubmit = (values: any) => {
-  console.log(values);
-};
+import { useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import * as z from 'zod'
+
+import { Button } from '@/components/ui/button'
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+
+const formSchema = toTypedSchema(z.object({
+  username: z.string().min(2).max(50),
+}))
+
+const form = useForm({
+  validationSchema: formSchema,
+})
+
+const onSubmit = form.handleSubmit((values) => {
+  console.log('Form submitted!', values)
+})
 </script>
 
 <template>
-  <div>
-    <VeeForm
-      :validation-schema="validationSchema"
-      @submit="onSubmit"
-      class="vee-form"
-    >
-      <label for="email">Email</label>
-      <VeeField type="email" name="email" />
-      <VeeErrorMessage name="email" />
-      <label for="password">Password</label>
-      <VeeField type="password" name="password" />
-      <VeeErrorMessage name="password" />
-
-      <div class="flex gap-4">
-        <Button variant="default">Submit</Button>
-        <Button variant="destructive">Cancel</Button>
-      </div>
-    </VeeForm>
-  </div>
+  <form @submit="onSubmit">
+    <FormField v-slot="{ componentField }" name="username">
+      <FormItem>
+        <FormLabel>Username</FormLabel>
+        <FormControl>
+          <Input type="text" placeholder="shadcn" v-bind="componentField" />
+        </FormControl>
+        <FormDescription>
+          This is your public display name.
+        </FormDescription>
+        <FormMessage />
+      </FormItem>
+    </FormField>
+    <Button type="submit">
+      Submit
+    </Button>
+  </form>
 </template>
-<style>
-.vee-form {
-  display: flex;
-  gap: 4px;
-  flex-direction: column;
-  max-width: max-content;
-}
-</style>
