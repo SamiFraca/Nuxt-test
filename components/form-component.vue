@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
 import * as zod from "zod";
+import Button from "./ui/button/Button.vue";
 const validationSchema = toTypedSchema(
   zod.object({
     email: zod
@@ -31,7 +32,11 @@ const onSubmit = (values: any) => {
       <label for="password">Password</label>
       <VeeField type="password" name="password" />
       <VeeErrorMessage name="password" />
-      <button>Sign up</button>
+
+      <div class="flex gap-4">
+        <Button variant="default">Submit</Button>
+        <Button variant="destructive">Cancel</Button>
+      </div>
     </VeeForm>
   </div>
 </template>
