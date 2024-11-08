@@ -16,10 +16,10 @@ const form = useForm({
   validationSchema: formSchema,
 });
 const showDialog = ref(false);
+const formData = ref<{ email: string; password: string }>({ email: "", password: "" });
 const onSubmit = form.handleSubmit((values) => {
-  console.log(values);
-  showDialog.value = true;
-  console.log(showDialog.value);
+  formData.value = values;  
+  showDialog.value = true; 
 });
 const handleVisibilityChange = (newVisibility: boolean) => {
   showDialog.value = newVisibility;
@@ -62,5 +62,8 @@ const handleVisibilityChange = (newVisibility: boolean) => {
     v-if="showDialog"
     :isVisible="showDialog"
     @update:isVisible="handleVisibilityChange"
+    :formData="formData"
+
+    
   />
 </template>
