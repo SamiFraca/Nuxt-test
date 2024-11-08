@@ -15,14 +15,19 @@ import { Input } from "@/components/ui/input";
 const form = useForm({
   validationSchema: formSchema,
 });
-
+const showDialog = ref(false);
 const onSubmit = form.handleSubmit((values) => {
-  console.log("Form submitted!", values);
+  console.log(values);
+  showDialog.value = true;
+  console.log(showDialog.value)
 });
 </script>
 
 <template>
-  <form @submit="onSubmit" class="max-w-96 m-auto h-svh flex flex-col  justify-center gap-4">
+  <form
+    @submit="onSubmit"
+    class="flex flex-col justify-center gap-4 m-auto max-w-96 h-svh"
+  >
     <FormField v-slot="{ componentField }" name="email">
       <FormItem>
         <FormLabel>Email <span class="text-red-500">*</span></FormLabel>
@@ -37,7 +42,11 @@ const onSubmit = form.handleSubmit((values) => {
       <FormItem>
         <FormLabel>Password <span class="text-red-500">*</span></FormLabel>
         <FormControl>
-          <Input type="password" placeholder="Password" v-bind="componentField" />
+          <Input
+            type="password"
+            placeholder="Password"
+            v-bind="componentField"
+          />
         </FormControl>
         <FormDescription> Choose a secure password. </FormDescription>
         <FormMessage />
@@ -45,4 +54,6 @@ const onSubmit = form.handleSubmit((values) => {
     </FormField>
     <Button type="submit"> Submit </Button>
   </form>
+
+  <SuccessDialog v-if="showDialog" :isVisible="showDialog" />
 </template>
