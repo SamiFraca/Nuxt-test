@@ -1,6 +1,6 @@
 import { toTypedSchema } from "@vee-validate/zod";
 import * as zod from "zod";
-export const validationSchema = toTypedSchema(
+export const formSchema = toTypedSchema(
   zod.object({
     email: zod
       .string()
