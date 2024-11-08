@@ -19,8 +19,11 @@ const showDialog = ref(false);
 const onSubmit = form.handleSubmit((values) => {
   console.log(values);
   showDialog.value = true;
-  console.log(showDialog.value)
+  console.log(showDialog.value);
 });
+const handleVisibilityChange = (newVisibility: boolean) => {
+  showDialog.value = newVisibility;
+};
 </script>
 
 <template>
@@ -55,5 +58,9 @@ const onSubmit = form.handleSubmit((values) => {
     <Button type="submit"> Submit </Button>
   </form>
 
-  <SuccessDialog v-if="showDialog" :isVisible="showDialog" />
+  <SuccessDialog
+    v-if="showDialog"
+    :isVisible="showDialog"
+    @update:isVisible="handleVisibilityChange"
+  />
 </template>
