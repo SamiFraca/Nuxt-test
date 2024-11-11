@@ -30,6 +30,7 @@ export const useFormStore = defineStore("form", {
         "form-data",
         JSON.stringify({ email: this.email, password: this.password })
       );
+      
     },
   },
   getters: {
