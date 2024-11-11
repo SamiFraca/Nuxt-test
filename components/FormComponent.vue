@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import type { formDataProps } from "./SuccessDialog.vue";
+import SelectForm from "./ui/select/SelectForm.vue";
 const formStore = useFormStore();
 const loadedDataStore: formDataProps = formStore.getFormData;
 const form = useForm({
@@ -84,6 +85,8 @@ const handleVisibilityChange = (newVisibility: boolean) => {
         <FormMessage />
       </FormItem>
     </FormField>
+    <SelectForm/>
+    
     <Button type="submit"> Submit </Button>
   </form>
 

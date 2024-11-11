@@ -10,5 +10,10 @@ export const formSchema = toTypedSchema(
       .string()
       .min(1, { message: "This is required" })
       .min(8, { message: "Too short" }),
+    profession: zod
+      .string({
+        required_error: "Please select an profession to display.",
+      })
+      .min(1),
   })
 );

@@ -8,6 +8,7 @@ export const useFormStore = defineStore("form", {
       return {
         email: parsedData?.email || "",
         password: parsedData?.password || "",
+        profession: parsedData?.profession || "",
       };
     }
 
@@ -24,13 +25,19 @@ export const useFormStore = defineStore("form", {
     setPassword(updatedPassword: string) {
       this.password = updatedPassword;
     },
+    setProfession(updatedProfession: string) {
+      this.profession = updatedProfession;
+    },
 
     saveFormData() {
       localStorage.setItem(
         "form-data",
-        JSON.stringify({ email: this.email, password: this.password })
+        JSON.stringify({
+          email: this.email,
+          password: this.password,
+          profession: this.profession,
+        })
       );
-      
     },
   },
   getters: {
